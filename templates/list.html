@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<table border="1 px" style="width: 100%; text-align: center">
+    <th>date</th>
+    <th>№</th>
+    <th>company</th>
+    <th>id</th>
+    <th>тип</th>
+    <th>сумма</th>
+    <th>оплата</th>
+    <th>доставка</th>
+    <th>менеджер</th>
+    <th>статус</th>
+    <th>уведомление</th>
+    {% for order in orders %}
+        <tr>
+            <td>
+                {% if order.product.cdate %}
+                    {{ order.product.cdate }}
+                {% else %}
+                    no_data
+                {% endif %}
+            </td>
+
+            <td>
+                {% if order.parent_id %}
+                    {{ order.parent_id }}
+                {% else %}
+                    no_data
+                {% endif %}
+            </td> {# номер #}
+
+            <td>
+                {% if order.product.company %}
+                    {{ order.product.company }}
+                {% else %}
+                    no_data
+                {% endif %}
+            </td>
+
+            <td>
+                {% if order.id %}
+                    {{ order.id }}
+                {% else %}
+                    no_data
+                {% endif %}
+            </td>
+            <td>
+                {% if order.product.pay == 1 %}
+                    физ.лицо
+                {% elif order.product.pay == 2  %}
+                    юр.лицо
+                {% else %}
+                    no_data
+                {% endif %}
+            </td>
+
+            <td>
+                {% if order.price %}
+                    {{ order.price }}
+                {% else %}
+                    no_data
+                {% endif %}
+            </td>
+            <td>?</td> {# оплата #}
+            <td>
+                {% if order.product.delivery_id %}
+                    {{ order.product.delivery_id }}
+                {% else %}
+                    no_data
+                {% endif %}
+            </td>
+            <td>?</td> {# менеджер #}
+            <td>
+                {% if order.product.status %}
+                    {{ order.product.status }}
+                {% else %}
+                    no_data
+                {% endif %}
+            </td>
+            <td>?</td> {# уведомление #}
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
