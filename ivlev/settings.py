@@ -66,6 +66,7 @@ DATABASES = {
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
+
 }
 
 # Internationalization
@@ -85,7 +86,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = ('/home/pilgrim/PycharmProjects/ivlev/static')
 
 TEMPLATE_DIRS = (
     os.path.join('templates')

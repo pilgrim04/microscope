@@ -15,3 +15,39 @@ class ListView(TemplateView):
         context['orders'] = orders
 
         return context
+
+
+class MyOrderItemView(TemplateView):
+    template_name = 'myorderitem.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MyOrderItemView, self).get_context_data(**kwargs)
+
+        return context
+
+
+class MyOrdersView(TemplateView):
+    template_name = 'myorders.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(MyOrdersView, self).get_context_data(**kwargs)
+
+        return context
+
+
+class OrderItemView(TemplateView):
+    template_name = 'orderitem.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderItemView, self).get_context_data(**kwargs)
+
+        return context
+
+
+class OrdersView(TemplateView):
+    template_name = 'orders.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(OrdersView, self).get_context_data(**kwargs)
+
+        return context
