@@ -26,6 +26,24 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+ROOT_PATH = os.path.dirname(__file__)
+ROOT_PATH = os.path.abspath(os.path.join(ROOT_PATH, os.pardir))
+
+MEDIA_ROOT = ROOT_PATH + '/media/'
+MEDIA_URL = '/media/'
+print ROOT_PATH
+
+STATIC_ROOT = ROOT_PATH + '/collect_static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (ROOT_PATH + '/static/',)
+
+TEMPLATE_DIRS = (
+    os.path.join('templates')
+)
+
 
 # Application definition
 
@@ -47,6 +65,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 ROOT_URLCONF = 'ivlev.urls'
@@ -83,14 +107,3 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = ('/home/pilgrim/PycharmProjects/ivlev/static')
-
-TEMPLATE_DIRS = (
-    os.path.join('templates')
-)
