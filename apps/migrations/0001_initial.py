@@ -8,155 +8,95 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Delivery'
-        db.create_table(u'apps_delivery', (
+        # Adding model 'Orderitems'
+        db.create_table(u'apps_orderitems', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('field1', self.gf('django.db.models.fields.CharField')(max_length=256)),
+            ('parent', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('product', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('title', self.gf('django.db.models.fields.CharField')(default='', max_length=255)),
+            ('url', self.gf('django.db.models.fields.CharField')(default='', max_length=64)),
+            ('price', self.gf('django.db.models.fields.FloatField')(default=0.0)),
+            ('count', self.gf('django.db.models.fields.SmallIntegerField')(default=0)),
         ))
-        db.send_create_signal(u'apps', ['Delivery'])
-
-        # Adding model 'Users'
-        db.create_table(u'apps_users', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('field1', self.gf('django.db.models.fields.CharField')(max_length=256)),
-        ))
-        db.send_create_signal(u'apps', ['Users'])
-
-        # Adding model 'Status'
-        db.create_table(u'apps_status', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('field1', self.gf('django.db.models.fields.CharField')(max_length=256)),
-        ))
-        db.send_create_signal(u'apps', ['Status'])
-
-        # Adding model 'Zakaz'
-        db.create_table(u'apps_zakaz', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('field1', self.gf('django.db.models.fields.CharField')(max_length=256)),
-        ))
-        db.send_create_signal(u'apps', ['Zakaz'])
-
-        # Adding model 'Items'
-        db.create_table(u'apps_items', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('ip', self.gf('django.db.models.fields.CharField')(max_length=15)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('email', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('phone', self.gf('django.db.models.fields.IntegerField')()),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('index', self.gf('django.db.models.fields.IntegerField')()),
-            ('street', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('house', self.gf('django.db.models.fields.IntegerField')()),
-            ('housing', self.gf('django.db.models.fields.IntegerField')()),
-            ('office', self.gf('django.db.models.fields.IntegerField')()),
-            ('comments', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('delivery', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['apps.Delivery'])),
-            ('cdate', self.gf('django.db.models.fields.DateTimeField')()),
-            ('uid', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['apps.Users'])),
-            ('pay', self.gf('django.db.models.fields.SmallIntegerField')()),
-            ('company', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('inn', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('kpp', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('juraddress', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('bank_r_acc', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('bank_k_acc', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('bank_bik', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('baddress', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('status', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['apps.Status'])),
-        ))
-        db.send_create_signal(u'apps', ['Items'])
+        db.send_create_signal(u'apps', ['Orderitems'])
 
         # Adding model 'Orders'
         db.create_table(u'apps_orders', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('parent', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['apps.Zakaz'])),
-            ('product', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['apps.Items'])),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('url', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('price', self.gf('django.db.models.fields.FloatField')()),
-            ('count', self.gf('django.db.models.fields.FloatField')()),
+            ('ip', self.gf('django.db.models.fields.CharField')(default='', max_length=20)),
+            ('name', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('email', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('phone', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('city', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('index', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('street', self.gf('django.db.models.fields.CharField')(default='', max_length=128)),
+            ('house', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('housing', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('office', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('comments', self.gf('django.db.models.fields.CharField')(default='', max_length=128)),
+            ('delivery', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('cdate', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('uid', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('pay', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('company', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('inn', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('kpp', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('juraddress', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('bank_r_acc', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('bank_k_acc', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('bank_bik', self.gf('django.db.models.fields.CharField')(default='', max_length=32)),
+            ('baddress', self.gf('django.db.models.fields.CharField')(default='', max_length=128)),
+            ('status', self.gf('django.db.models.fields.IntegerField')(default=0)),
         ))
         db.send_create_signal(u'apps', ['Orders'])
 
 
     def backwards(self, orm):
-        # Deleting model 'Delivery'
-        db.delete_table(u'apps_delivery')
-
-        # Deleting model 'Users'
-        db.delete_table(u'apps_users')
-
-        # Deleting model 'Status'
-        db.delete_table(u'apps_status')
-
-        # Deleting model 'Zakaz'
-        db.delete_table(u'apps_zakaz')
-
-        # Deleting model 'Items'
-        db.delete_table(u'apps_items')
+        # Deleting model 'Orderitems'
+        db.delete_table(u'apps_orderitems')
 
         # Deleting model 'Orders'
         db.delete_table(u'apps_orders')
 
 
     models = {
-        u'apps.delivery': {
-            'Meta': {'object_name': 'Delivery'},
-            'field1': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'apps.items': {
-            'Meta': {'object_name': 'Items'},
-            'baddress': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'bank_bik': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'bank_k_acc': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'bank_r_acc': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'cdate': ('django.db.models.fields.DateTimeField', [], {}),
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'comments': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'company': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'delivery': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['apps.Delivery']"}),
-            'email': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'house': ('django.db.models.fields.IntegerField', [], {}),
-            'housing': ('django.db.models.fields.IntegerField', [], {}),
+        u'apps.orderitems': {
+            'Meta': {'object_name': 'Orderitems'},
+            'count': ('django.db.models.fields.SmallIntegerField', [], {'default': '0'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'index': ('django.db.models.fields.IntegerField', [], {}),
-            'inn': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'ip': ('django.db.models.fields.CharField', [], {'max_length': '15'}),
-            'juraddress': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'kpp': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'office': ('django.db.models.fields.IntegerField', [], {}),
-            'pay': ('django.db.models.fields.SmallIntegerField', [], {}),
-            'phone': ('django.db.models.fields.IntegerField', [], {}),
-            'status': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['apps.Status']"}),
-            'street': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'uid': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['apps.Users']"})
+            'parent': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'price': ('django.db.models.fields.FloatField', [], {'default': '0.0'}),
+            'product': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'title': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
+            'url': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '64'})
         },
         u'apps.orders': {
             'Meta': {'object_name': 'Orders'},
-            'count': ('django.db.models.fields.FloatField', [], {}),
+            'baddress': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '128'}),
+            'bank_bik': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'bank_k_acc': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'bank_r_acc': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'cdate': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'city': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'comments': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '128'}),
+            'company': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'delivery': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'email': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'house': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'housing': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['apps.Zakaz']"}),
-            'price': ('django.db.models.fields.FloatField', [], {}),
-            'product': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['apps.Items']"}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'url': ('django.db.models.fields.CharField', [], {'max_length': '256'})
-        },
-        u'apps.status': {
-            'Meta': {'object_name': 'Status'},
-            'field1': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'apps.users': {
-            'Meta': {'object_name': 'Users'},
-            'field1': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'apps.zakaz': {
-            'Meta': {'object_name': 'Zakaz'},
-            'field1': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+            'index': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'inn': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'ip': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '20'}),
+            'juraddress': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'kpp': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'office': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'pay': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'phone': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '32'}),
+            'status': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'street': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '128'}),
+            'uid': ('django.db.models.fields.IntegerField', [], {'default': '0'})
         }
     }
 

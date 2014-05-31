@@ -1,56 +1,53 @@
 # coding: utf-8
 from django.db import models
+from .consts import *
 
 
-class Delivery(models.Model):
-    field1 = models.CharField(max_length=256)
+class Orderitems(models.Model):
+    parent = models.IntegerField(null=False, default=0, blank=True)
+    product = models.IntegerField(null=False, default=0, blank=True)
+    title = models.CharField(max_length=255, null=False, default='', blank=True)
+    url = models.CharField(max_length=64, null=False, default='', blank=True)
+    price = models.FloatField(null=False, default=0.0, blank=True)
+    count = models.SmallIntegerField(null=False, default=0, blank=True)
 
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
-class Users(models.Model):
-    field1 = models.CharField(max_length=256)
-
-
-class Status(models.Model):
-    field1 = models.CharField(max_length=256)
-
-
-class Zakaz(models.Model):
-    field1 = models.CharField(max_length=256)
-
-
-class Items(models.Model):
-    ip = models.CharField(max_length=15)
-    name = models.CharField(max_length=256)
-    email = models.CharField(max_length=256)
-    phone = models.IntegerField()
-    city = models.CharField(max_length=256)
-    index = models.IntegerField()
-    street = models.CharField(max_length=256)
-    house = models.IntegerField()
-    housing = models.IntegerField()
-    office = models.IntegerField()
-    comments = models.CharField(max_length=256)
-    delivery = models.ForeignKey(Delivery)
-    cdate = models.DateTimeField()
-    uid = models.ForeignKey(Users)
-    pay = models.SmallIntegerField()
-    company = models.CharField(max_length=256)
-    inn = models.CharField(max_length=256)
-    kpp = models.CharField(max_length=256)
-    juraddress = models.CharField(max_length=256)
-    bank_r_acc = models.CharField(max_length=256)
-    bank_k_acc = models.CharField(max_length=256)
-    bank_bik = models.CharField(max_length=256)
-    baddress = models.CharField(max_length=256)
-    status = models.ForeignKey(Status)
-    #a_orders
+    def __unicode__(self):
+        return unicode(self.title)
 
 
 class Orders(models.Model):
-    parent = models.ForeignKey(Zakaz)
-    product = models.ForeignKey(Items)
-    title = models.CharField(max_length=256)
-    url = models.CharField(max_length=256)
-    price = models.FloatField()
-    count = models.FloatField()
-    # a_order-items
+    ip = models.CharField(max_length=20, null=False, default='', blank=True)
+    name = models.CharField(max_length=32, null=False, default='', blank=True)
+    email = models.CharField(max_length=32, null=False, default='', blank=True)
+    phone = models.CharField(max_length=32, null=False, default='', blank=True)
+    city =  models.CharField(max_length=32, null=False, default='', blank=True)
+    index = models.CharField(max_length=32, null=False, default='', blank=True)
+    street = models.CharField(max_length=128, null=False, default='', blank=True)
+    house = models.CharField(max_length=32, null=False, default='', blank=True)
+    housing = models.CharField(max_length=32, null=False, default='', blank=True)
+    office = models.CharField(max_length=32, null=False, default='', blank=True)
+    comments = models.CharField(max_length=128, null=False, default='', blank=True)
+    delivery = models.IntegerField(choices=ORDERS_DELIVERY_CHOICES, null=False, default=0, blank=True)
+    cdate = models.IntegerField(null=False, default=0, blank=True)
+    uid = models.IntegerField(null=False, default=0, blank=True)
+    pay = models.IntegerField(choices=ORDERS_PAY_CHOICES, null=False, default=0, blank=True)
+    company = models.CharField(max_length=32, null=False, default='', blank=True)
+    inn = models.CharField(max_length=32, null=False, default='', blank=True)
+    kpp = models.CharField(max_length=32, null=False, default='', blank=True)
+    juraddress = models.CharField(max_length=32, null=False, default='', blank=True)
+    bank_r_acc = models.CharField(max_length=32, null=False, default='', blank=True)
+    bank_k_acc = models.CharField(max_length=32, null=False, default='', blank=True)
+    bank_bik = models.CharField(max_length=32, null=False, default='', blank=True)
+    baddress = models.CharField(max_length=128, null=False, default='', blank=True)
+    status = models.IntegerField(choices=ORDERS_STATUS_CHOICES, null=False, default=0, blank=True)
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __unicode__(self):
+        return unicode(self.id)
