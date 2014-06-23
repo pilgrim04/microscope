@@ -38,7 +38,6 @@ ROOT_PATH = os.path.abspath(os.path.join(ROOT_PATH, os.pardir))
 
 MEDIA_ROOT = ROOT_PATH + '/media/'
 MEDIA_URL = '/media/'
-print ROOT_PATH
 
 STATIC_ROOT = ROOT_PATH + '/collect_static/'
 STATIC_URL = '/static/'
